@@ -10,6 +10,7 @@ from django.contrib.auth import (
 from django.utils.translation import gettext as _
 from rest_framework import serializers
 
+
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object"""
 
@@ -32,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user auth token"""
     email = serializers.EmailField()
@@ -43,14 +45,14 @@ class AuthTokenSerializer(serializers.Serializer):
     def validate(self, attrs):
         """Validate and auth the user"""
         email = attrs.get("email")
-        password =  attrs.get("password")
+        password = attrs.get("password")
         user = authenticate(
             request=self.context.get("request"),
             username=email,
             password=password
         )
         if not user:
-            msg =  _('Unable to authenticate with provided credentials')
+            msg = _('Unable to authenticate with provided credentials')
             raise serializers.ValidationError(msg, code='authorization')
 
         attrs['user'] = user
