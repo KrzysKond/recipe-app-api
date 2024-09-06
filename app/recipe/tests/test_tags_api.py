@@ -15,9 +15,11 @@ from recipe.serializers import TagSerializer
 
 TAGS_URL = reverse('recipe:tag-list')
 
+
 def detail_url(tag_id):
     """VCreate and return a tag detail url"""
     return reverse('recipe:tag-detail', args=[tag_id])
+
 
 def create_user(email='user@example.com', password='testpass123'):
     """Create and return a user."""
@@ -74,7 +76,7 @@ class PrivateTagsApiTests(TestCase):
         """test update tag"""
         tag = Tag.objects.create(user=self.user, name='After dinner')
 
-        payload= {'name': 'Dessert'}
+        payload = {'name': 'Dessert'}
         url = detail_url(tag.id)
         res = self.client.patch(url, payload)
 
